@@ -2,7 +2,7 @@ name: curved_navigation_bar
 description: Animated Curved Shape Navigation Bar
 version: 0.0.1
 author: Rafal Bednarczuk <rafbednarczuk@gmail.com>
-homepage:
+homepage: https://github.com/rafalbednarczuk/curved_navigation_bar
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
