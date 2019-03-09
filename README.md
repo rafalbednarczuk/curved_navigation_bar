@@ -1,14 +1,40 @@
 # curved_navigation_bar
 
-A new Flutter package.
+A Flutter package for easy implementation of curved navigation bar. 
 
-## Getting Started
+![Gif](https://github.com/rafalbednarczuk/curved_navigation_bar/blob/master/example.gif "Fancy Gif")
 
-This project is a starting point for a Dart
-[package](https://flutter.io/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+### Add dependency
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+```yaml
+dependencies:
+  curved_navigation_bar: ^0.1.0 #latest version
+```
+
+### Easy to use
+
+```dart
+    Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.blueAccent,
+        items: <Widget>[
+          Icon(Icons.add, size: 30),
+          Icon(Icons.list, size: 30),
+          Icon(Icons.compare_arrows, size: 30),
+        ],
+        onTap: (index) {
+          //Handle button tap
+        },
+      ),
+    )
+```
+
+### Attributes
+
+items: List of Widgets
+index: Initial index
+color: Color of NavigationBar, default Colors.white
+backgroundColor: Color of NavigationBar's background, default Colors.blueAccent
+onTap: Function handling taps on items
+curve: Curves interpolating button change animation, default Curves.easeOutCubic
+duration: Duration of button change animation, default Duration(milliseconds: 600)
