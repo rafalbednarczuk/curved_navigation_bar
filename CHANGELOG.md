@@ -1,5 +1,5 @@
 ## [0.1.1]
-- update Readme package usage
+- update Readme package usage and package link
 
 ## [0.1.0]
 - update Readme
