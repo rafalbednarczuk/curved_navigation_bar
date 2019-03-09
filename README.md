@@ -1,5 +1,5 @@
 # curved_navigation_bar
-[pub package](https://github.com/rafalbednarczuk/curved_navigation_bar)
+[pub package](https://pub.dartlang.org/packages/curved_navigation_bar)
 
 A Flutter package for easy implementation of curved navigation bar. 
 
