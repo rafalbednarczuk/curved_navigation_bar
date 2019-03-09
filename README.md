@@ -31,10 +31,10 @@ dependencies:
 
 ### Attributes
 
-items: List of Widgets
-index: Initial index
-color: Color of NavigationBar, default Colors.white
-backgroundColor: Color of NavigationBar's background, default Colors.blueAccent
-onTap: Function handling taps on items
-curve: Curves interpolating button change animation, default Curves.easeOutCubic
+items: List of Widgets  
+index: Initial index  
+color: Color of NavigationBar, default Colors.white  
+backgroundColor: Color of NavigationBar's background, default Colors.blueAccent  
+onTap: Function handling taps on items  
+curve: Curves interpolating button change animation, default Curves.easeOutCubic  
 duration: Duration of button change animation, default Duration(milliseconds: 600)
