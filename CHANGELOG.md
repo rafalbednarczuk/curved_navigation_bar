@@ -1,3 +1,6 @@
+## [0.1.2]
+- update Readme dependency version
+
 ## [0.1.1]
 - update Readme package usage and package link
 
