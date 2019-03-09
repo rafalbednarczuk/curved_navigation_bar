@@ -27,7 +27,7 @@ Scaffold(
     },
   ),
   body: Container(color: Colors.blueAccent),
-);
+)
 ```
 
 ### Attributes
