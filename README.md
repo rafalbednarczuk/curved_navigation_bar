@@ -14,19 +14,20 @@ dependencies:
 ### Easy to use
 
 ```dart
-    Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.blueAccent,
-        items: <Widget>[
-          Icon(Icons.add, size: 30),
-          Icon(Icons.list, size: 30),
-          Icon(Icons.compare_arrows, size: 30),
-        ],
-        onTap: (index) {
-          //Handle button tap
-        },
-      ),
-    )
+Scaffold(
+  bottomNavigationBar: CurvedNavigationBar(
+    backgroundColor: Colors.blueAccent,
+    items: <Widget>[
+      Icon(Icons.add, size: 30),
+      Icon(Icons.list, size: 30),
+      Icon(Icons.compare_arrows, size: 30),
+    ],
+    onTap: (index) {
+      //Handle button tap
+    },
+  ),
+  body: Container(color: Colors.blueAccent),
+);
 ```
 
 ### Attributes

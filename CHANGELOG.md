@@ -1,3 +1,6 @@
+## [0.1.1]
+- update Readme package usage
+
 ## [0.1.0]
 - update Readme
 
