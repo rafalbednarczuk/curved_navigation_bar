@@ -1,11 +1,11 @@
 name: curved_navigation_bar
 description: Stunning Animating Curved Shape Navigation Bar. Adjustable color, background color, animation curve, animation duration.
-version: 0.1.2
+version: 0.1.22
 author: Rafal Bednarczuk <rafbednarczuk@gmail.com>
 homepage: https://github.com/rafalbednarczuk/curved_navigation_bar
 
 environment:
-  sdk: ">=2.1.0-dev <3.0.0"
+  sdk: ">=2.0.0 <3.0.0"
 
 dependencies:
   flutter:

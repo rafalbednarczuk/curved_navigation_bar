@@ -1,3 +1,6 @@
+## [0.1.22]
+- make package usable on flutter stable version
+
 ## [0.1.2]
 - update Readme dependency version
 
