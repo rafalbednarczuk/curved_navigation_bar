@@ -24,7 +24,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ],
           color: Colors.white,
           backgroundColor: Colors.blueAccent,
-          animationCurve: Curves.easeOutCubic,
+          animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 600),
           onTap: (index) {
             setState(() {

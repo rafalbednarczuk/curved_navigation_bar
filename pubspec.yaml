@@ -5,7 +5,7 @@ author: Rafal Bednarczuk <rafbednarczuk@gmail.com>
 homepage: https://github.com/rafalbednarczuk/curved_navigation_bar
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.1.0-dev <3.0.0"
 
 dependencies:
   flutter:
