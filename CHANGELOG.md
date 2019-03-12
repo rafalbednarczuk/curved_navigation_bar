@@ -1,3 +1,6 @@
+## [0.1.24]
+- readme grammar fix
+
 ## [0.1.23]
 - fix initialIndex
 

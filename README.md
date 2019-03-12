@@ -9,7 +9,7 @@ A Flutter package for easy implementation of curved navigation bar.
 
 ```yaml
 dependencies:
-  curved_navigation_bar: ^0.1.23 #latest version
+  curved_navigation_bar: ^0.1.24 #latest version
 ```
 
 ### Easy to use
@@ -34,7 +34,7 @@ Scaffold(
 ### Attributes
 
 items: List of Widgets  
-initialIndex: Initial index of Curve
+initialIndex: Initial index of Curve  
 color: Color of NavigationBar, default Colors.white  
 backgroundColor: Color of NavigationBar's background, default Colors.blueAccent  
 onTap: Function handling taps on items  
