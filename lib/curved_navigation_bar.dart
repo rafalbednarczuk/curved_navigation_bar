@@ -5,25 +5,24 @@ import 'src/nav_custom_painter.dart';
 
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
-  final int index;
+  final int initialIndex;
   final Color color;
   final Color backgroundColor;
   final ValueChanged<int> onTap;
   final Curve animationCurve;
   final Duration animationDuration;
 
-  CurvedNavigationBar(
-      {Key key,
-      @required this.items,
-      this.index = 0,
-      this.color = Colors.white,
-      this.backgroundColor = Colors.blueAccent,
-      this.onTap,
-      this.animationCurve = Curves.easeOut,
-      this.animationDuration = const Duration(milliseconds: 600)})
+  CurvedNavigationBar({Key key,
+    @required this.items,
+    this.initialIndex = 0,
+    this.color = Colors.white,
+    this.backgroundColor = Colors.blueAccent,
+    this.onTap,
+    this.animationCurve = Curves.easeOut,
+    this.animationDuration = const Duration(milliseconds: 600)})
       : assert(items != null),
         assert(items.length >= 2),
-        assert(0 <= index && index < items.length),
+        assert(0 <= initialIndex && initialIndex < items.length),
         super(key: key);
 
   @override
@@ -32,9 +31,9 @@ class CurvedNavigationBar extends StatefulWidget {
 
 class _CurvedNavigationBarState extends State<CurvedNavigationBar>
     with SingleTickerProviderStateMixin {
-  double _startingPos = 0;
+  double _startingPos;
   int _endingIndex = 0;
-  double _pos = 0;
+  double _pos;
   double _buttonHide = 0;
   Widget _icon;
   AnimationController _animationController;
@@ -45,7 +44,9 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
     super.initState();
     _icon = widget.items[0];
     _length = widget.items.length;
-    _animationController = AnimationController(vsync: this);
+    _pos = widget.initialIndex / _length;
+    _startingPos = widget.initialIndex / _length;
+    _animationController = AnimationController(vsync: this, value: _pos);
     _animationController.addListener(() {
       setState(() {
         _pos = _animationController.value;
@@ -62,7 +63,9 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Container(
       color: widget.backgroundColor,
       height: 75.0,
@@ -107,14 +110,14 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
                 height: 100.0,
                 child: Row(
                     children: widget.items.map((item) {
-                  return NavButton(
-                    onTap: _buttonTap,
-                    position: _pos,
-                    length: _length,
-                    index: widget.items.indexOf(item),
-                    child: item,
-                  );
-                }).toList())),
+                      return NavButton(
+                        onTap: _buttonTap,
+                        position: _pos,
+                        length: _length,
+                        index: widget.items.indexOf(item),
+                        child: item,
+                      );
+                    }).toList())),
           ),
         ],
       ),

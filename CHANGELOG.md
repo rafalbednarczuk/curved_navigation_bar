@@ -1,3 +1,6 @@
+## [0.1.23]
+- fix initialIndex
+
 ## [0.1.22]
 - make package usable on flutter stable version
 
