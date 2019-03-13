@@ -1,3 +1,6 @@
+## [0.1.25]
+- add buttonBackgroundColor param
+
 ## [0.1.24]
 - readme grammar fix
 

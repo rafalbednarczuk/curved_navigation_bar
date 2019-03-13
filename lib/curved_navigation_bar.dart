@@ -7,19 +7,22 @@ class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int initialIndex;
   final Color color;
+  final Color buttonBackgroundColor;
   final Color backgroundColor;
   final ValueChanged<int> onTap;
   final Curve animationCurve;
   final Duration animationDuration;
 
-  CurvedNavigationBar({Key key,
-    @required this.items,
-    this.initialIndex = 0,
-    this.color = Colors.white,
-    this.backgroundColor = Colors.blueAccent,
-    this.onTap,
-    this.animationCurve = Curves.easeOut,
-    this.animationDuration = const Duration(milliseconds: 600)})
+  CurvedNavigationBar(
+      {Key key,
+      @required this.items,
+      this.initialIndex = 0,
+      this.color = Colors.white,
+      this.buttonBackgroundColor,
+      this.backgroundColor = Colors.blueAccent,
+      this.onTap,
+      this.animationCurve = Curves.easeOut,
+      this.animationDuration = const Duration(milliseconds: 600)})
       : assert(items != null),
         assert(items.length >= 2),
         assert(0 <= initialIndex && initialIndex < items.length),
@@ -63,9 +66,7 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Container(
       color: widget.backgroundColor,
       height: 75.0,
@@ -84,9 +85,8 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
                   -(1 - _buttonHide) * 80,
                 ),
                 child: Material(
-                  color: widget.color,
+                  color: widget.buttonBackgroundColor ?? widget.color,
                   type: MaterialType.circle,
-                  elevation: 3.0,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: _icon,
@@ -110,14 +110,14 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
                 height: 100.0,
                 child: Row(
                     children: widget.items.map((item) {
-                      return NavButton(
-                        onTap: _buttonTap,
-                        position: _pos,
-                        length: _length,
-                        index: widget.items.indexOf(item),
-                        child: item,
-                      );
-                    }).toList())),
+                  return NavButton(
+                    onTap: _buttonTap,
+                    position: _pos,
+                    length: _length,
+                    index: widget.items.indexOf(item),
+                    child: item,
+                  );
+                }).toList())),
           ),
         ],
       ),
