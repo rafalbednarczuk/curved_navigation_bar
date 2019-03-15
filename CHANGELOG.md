@@ -1,3 +1,6 @@
+## [0.1.26]
+- Make Surface area for button clicks bigger
+
 ## [0.1.25]
 - add buttonBackgroundColor param
 
