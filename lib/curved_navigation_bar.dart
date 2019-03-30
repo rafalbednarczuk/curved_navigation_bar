@@ -45,7 +45,7 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   void initState() {
     super.initState();
-    _icon = widget.items[0];
+    _icon = widget.items[widget.initialIndex];
     _length = widget.items.length;
     _pos = widget.initialIndex / _length;
     _startingPos = widget.initialIndex / _length;
