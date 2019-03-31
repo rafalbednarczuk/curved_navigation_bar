@@ -6,6 +6,7 @@ import 'src/nav_custom_painter.dart';
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int initialIndex;
+  final double height;
   final Color color;
   final Color buttonBackgroundColor;
   final Color backgroundColor;
@@ -17,6 +18,7 @@ class CurvedNavigationBar extends StatefulWidget {
       {Key key,
       @required this.items,
       this.initialIndex = 0,
+      this.height = 75.0,
       this.color = Colors.white,
       this.buttonBackgroundColor,
       this.backgroundColor = Colors.blueAccent,
@@ -69,7 +71,7 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
     Size size = MediaQuery.of(context).size;
     return Container(
       color: widget.backgroundColor,
-      height: 75.0,
+      height: widget.height,
       child: Stack(
         overflow: Overflow.visible,
         alignment: Alignment.bottomCenter,
