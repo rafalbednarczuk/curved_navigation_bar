@@ -1,3 +1,6 @@
+## [0.2.0]
+- navigation bar index change available via index param, adjustable height via height param, minimum items: 1
+
 ## [0.1.26]
 - Make Surface area for button clicks bigger
 
