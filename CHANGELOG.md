@@ -1,3 +1,6 @@
+## [0.2.1]
+- height can be equal to 0.0
+
 ## [0.2.0]
 - navigation bar index change available via index param, adjustable height via height param, minimum items: 1
 
