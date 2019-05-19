@@ -1,3 +1,6 @@
+## [0.2.11]
+- remove debug print
+
 ## [0.2.1]
 - height can be equal to 0.0
 
