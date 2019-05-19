@@ -70,7 +70,6 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   void didUpdateWidget(CurvedNavigationBar oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print(_animationController.status);
     if (oldWidget.index != widget.index) {
       final newPosition = widget.index / _length;
       _startingPos = _pos;
