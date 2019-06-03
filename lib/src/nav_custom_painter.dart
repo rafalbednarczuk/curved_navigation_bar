@@ -5,10 +5,11 @@ class NavCustomPainter extends CustomPainter {
   double s;
   Color color;
 
-  NavCustomPainter(double startingLoc, int itemsLength, this.color) {
+  NavCustomPainter(double startingLoc, int itemsLength, this.color, {bool isRtl = false}): assert(isRtl != null) {
     final span = 1.0 / itemsLength;
     s = 0.2;
-    loc = startingLoc + (span - s) / 2;
+    double l = startingLoc + (span - s) / 2;
+    loc = isRtl ? 0.8 - l : l;
   }
 
   @override
