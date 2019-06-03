@@ -9,7 +9,7 @@ A Flutter package for easy implementation of curved navigation bar.
 
 ```yaml
 dependencies:
-  curved_navigation_bar: ^0.2.11 #latest version
+  curved_navigation_bar: ^0.2.2 #latest version
 ```
 
 ### Easy to use
@@ -42,4 +42,3 @@ onTap: Function handling taps on items
 animationCurve: Curves interpolating button change animation, default Curves.easeOutCubic  
 animationDuration: Duration of button change animation, default Duration(milliseconds: 600)  
 height: Height of NavigationBar, min 0.0, max 75.0  
-bool isRtl: Right to Left support, set true if your App in RTL Language

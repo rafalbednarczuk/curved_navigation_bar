@@ -4,12 +4,14 @@ class NavCustomPainter extends CustomPainter {
   double loc;
   double s;
   Color color;
+  TextDirection textDirection;
 
-  NavCustomPainter(double startingLoc, int itemsLength, this.color, {bool isRtl = false}): assert(isRtl != null) {
+  NavCustomPainter(
+      double startingLoc, int itemsLength, this.color, this.textDirection) {
     final span = 1.0 / itemsLength;
     s = 0.2;
     double l = startingLoc + (span - s) / 2;
-    loc = isRtl ? 0.8 - l : l;
+    loc = textDirection == TextDirection.rtl ? 0.8 - l : l;
   }
 
   @override

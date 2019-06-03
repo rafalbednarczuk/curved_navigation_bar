@@ -1,3 +1,6 @@
+## [0.2.2]
+- TextDirection Right-To-Left and Left-To-Right auto support
+
 ## [0.2.11]
 - remove debug print
 
