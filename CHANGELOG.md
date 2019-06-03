@@ -1,4 +1,4 @@
-## [0.2.2]
+## [0.2.20]
 - TextDirection Right-To-Left and Left-To-Right auto support
 
 ## [0.2.11]
