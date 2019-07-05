@@ -1,3 +1,6 @@
+## [0.3.0]
+- Change page programmatically
+
 ## [0.2.20]
 - TextDirection Right-To-Left and Left-To-Right auto support
 
