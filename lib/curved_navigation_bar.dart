@@ -32,10 +32,10 @@ class CurvedNavigationBar extends StatefulWidget {
         super(key: key);
 
   @override
-  _CurvedNavigationBarState createState() => _CurvedNavigationBarState();
+  CurvedNavigationBarState createState() => CurvedNavigationBarState();
 }
 
-class _CurvedNavigationBarState extends State<CurvedNavigationBar>
+class CurvedNavigationBarState extends State<CurvedNavigationBar>
     with SingleTickerProviderStateMixin {
   double _startingPos;
   int _endingIndex = 0;
@@ -153,6 +153,10 @@ class _CurvedNavigationBarState extends State<CurvedNavigationBar>
         ],
       ),
     );
+  }
+
+  void setPage(int index){
+    _buttonTap(index);
   }
 
   void _buttonTap(int index) {
