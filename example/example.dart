@@ -3,6 +3,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 void main() => runApp(MaterialApp(home: BottomNavBar()));
 
+GlobalKey bottomNavigationKey = GlobalKey();
+
 class BottomNavBar extends StatefulWidget {
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -14,6 +16,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: bottomNavigationKey,
         bottomNavigationBar: CurvedNavigationBar(
           index: 0,
           height: 75.0,
@@ -38,7 +41,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
         body: Container(
           color: Colors.blueAccent,
           child: Center(
-            child: Text(_page.toString(), textScaleFactor: 10.0),
+            child: Column(
+              children: <Widget>[
+                Text(_page.toString(), textScaleFactor: 10.0),
+                RaisedButton(
+                  child: Text('Go To Page 2'),
+                  onPressed: (){
+                    final CurvedNavigationBarState navBarState = bottomNavigationKey.currentState;
+                    navBarState.setPage(2-1);
+                  },
+                )
+              ],
+            ),
           ),
         ));
   }
