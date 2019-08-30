@@ -1,3 +1,6 @@
+## [0.3.1]
+- Replace InkWell by GestureDetector which wraps each of navigation buttons
+
 ## [0.3.0]
 - Change page programmatically
 
