@@ -15,16 +15,18 @@ class NavButton extends StatelessWidget {
     final difference = (position - desiredPosition).abs();
     final verticalAlignment = 1 - length * difference;
     final opacity = length * difference;
+     double blockSizeVertical = MediaQuery.of(context).size.height /100;
+
     return Expanded(
-      child: GestureDetector(
+      child: InkWell(
         onTap: () {
           onTap(index);
         },
         child: Container(
-            height: 75.0,
+      height: blockSizeVertical * 10,
             child: Transform.translate(
               offset: Offset(
-                  0, difference < 1.0 / length ? verticalAlignment * 40 : 0),
+                  0, difference < 1.0 / length ? verticalAlignment *  blockSizeVertical * 10 : 0),
               child: Opacity(
                   opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
                   child: child),
