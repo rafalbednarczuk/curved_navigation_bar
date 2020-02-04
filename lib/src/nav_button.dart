@@ -17,6 +17,7 @@ class NavButton extends StatelessWidget {
     final opacity = length * difference;
     return Expanded(
       child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () {
           onTap(index);
         },
