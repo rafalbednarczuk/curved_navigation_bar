@@ -1,3 +1,6 @@
+## [0.3.2]
+- Detect tap on the whole NavButton
+
 ## [0.3.1]
 - Replace InkWell by GestureDetector which wraps each of navigation buttons
 
