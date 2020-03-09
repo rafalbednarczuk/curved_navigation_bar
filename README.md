@@ -23,6 +23,10 @@ Scaffold(
       Icon(Icons.list, size: 30),
       Icon(Icons.compare_arrows, size: 30),
     ],
+    navGuard: (int index) {
+      // Handle access to the tab
+      // Return boolean or Future<bool> or Stream<bool>
+    },
     onTap: (index) {
       //Handle button tap
     },
@@ -39,6 +43,7 @@ color: Color of NavigationBar, default Colors.white
 buttonBackgroundColor: background color of floating button, default same as color attribute  
 backgroundColor: Color of NavigationBar's background, default Colors.blueAccent  
 onTap: Function handling taps on items  
+navGuard: Function handling tap and checks the guared result  
 animationCurve: Curves interpolating button change animation, default Curves.easeOutCubic  
 animationDuration: Duration of button change animation, default Duration(milliseconds: 600)  
 height: Height of NavigationBar, min 0.0, max 75.0  
@@ -61,6 +66,10 @@ height: Height of NavigationBar, min 0.0, max 75.0
             Icon(Icons.list, size: 30),
             Icon(Icons.compare_arrows, size: 30),
           ],
+          navGuard: (int index) {
+            return index != 2; // disallow access to 3rd tab
+            // can return boolean or Future<bool> or Stream<bool>
+          },
           onTap: (index) {
             setState(() {
               _page = index;
@@ -80,6 +89,16 @@ height: Height of NavigationBar, min 0.0, max 75.0
                     final CurvedNavigationBarState navBarState =
                         _bottomNavigationKey.currentState;
                     navBarState.setPage(1);
+                  },
+                ),
+                RaisedButton(
+                  child: Text('Go To Page of index 2'),
+                  onPressed: () {
+                    //Page change using state does the same as clicking index 2 navigation button
+                    // But also will ignore guard check
+                    final CurvedNavigationBarState navBarState =
+                        _bottomNavigationKey.currentState;
+                    navBarState.setPage(1, ignoreGuard: true);
                   },
                 )
               ],
