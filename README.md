@@ -98,7 +98,7 @@ height: Height of NavigationBar, min 0.0, max 75.0
                     // But also will ignore guard check
                     final CurvedNavigationBarState navBarState =
                         _bottomNavigationKey.currentState;
-                    navBarState.setPage(1, ignoreGuard: true);
+                    navBarState.setPage(2, ignoreGuard: true);
                   },
                 )
               ],
