@@ -10,6 +10,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Color buttonBackgroundColor;
   final Color backgroundColor;
   final ValueChanged<int> onTap;
+  final Function(int index) navGuard;
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
@@ -22,6 +23,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.buttonBackgroundColor,
     this.backgroundColor = Colors.blueAccent,
     this.onTap,
+    this.navGuard,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
@@ -155,11 +157,14 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     );
   }
 
-  void setPage(int index){
-    _buttonTap(index);
+  void setPage(int index, {bool ignoreGuard = false}){
+    _buttonTap(index, ignoreGuard: ignoreGuard);
   }
 
-  void _buttonTap(int index) {
+  void _buttonTap(int index, {bool ignoreGuard = false}) async {
+    if (!ignoreGuard && widget.navGuard != null && !await _testNavGuard(index)) {
+      return;
+    }
     if (widget.onTap != null) {
       widget.onTap(index);
     }
@@ -171,4 +176,39 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
           duration: widget.animationDuration, curve: widget.animationCurve);
     });
   }
+  
+  Future<bool> _testNavGuard(int index) async {
+    var guardTest = widget.navGuard(index);
+
+    // Default test result
+    bool guardTestResult = true;
+
+    // Allow if returns null
+    if (guardTest == null) {
+      return guardTestResult;
+    }
+
+    // If we have directly boolean
+    if (guardTest is bool) {
+      return guardTest;
+    }
+
+    // If it's a stream
+    if (guardTest is Stream) {
+      guardTest = guardTest.last;
+    }
+
+    // If it's a Future
+    if (guardTest is Future) {
+      guardTestResult = await guardTest;
+    }
+
+    // Finally if it's boolean
+    if (guardTestResult is bool) {
+      return guardTestResult;
+    }
+
+    return true;
+  }
+  
 }
