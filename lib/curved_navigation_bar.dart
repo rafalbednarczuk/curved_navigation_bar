@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
-typedef ValueChanged<T> = Future<bool> Function(T value);
+typedef AsyncValueChanged<T> = Future<bool> Function(T value);
 
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
@@ -12,7 +12,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Color color;
   final Color buttonBackgroundColor;
   final Color backgroundColor;
-  final ValueChanged<int> onTap;
+  final AsyncValueChanged<int> onTap;
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
