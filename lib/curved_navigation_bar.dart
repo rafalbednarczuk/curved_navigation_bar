@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
@@ -35,8 +36,7 @@ class CurvedNavigationBar extends StatefulWidget {
   CurvedNavigationBarState createState() => CurvedNavigationBarState();
 }
 
-class CurvedNavigationBarState extends State<CurvedNavigationBar>
-    with SingleTickerProviderStateMixin {
+class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTickerProviderStateMixin {
   double _startingPos;
   int _endingIndex = 0;
   double _pos;
@@ -44,6 +44,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   Widget _icon;
   AnimationController _animationController;
   int _length;
+  int _lastIndex;
 
   @override
   void initState() {
@@ -52,6 +53,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     _length = widget.items.length;
     _pos = widget.index / _length;
     _startingPos = widget.index / _length;
+    _lastIndex = widget.index;
     _animationController = AnimationController(vsync: this, value: _pos);
     _animationController.addListener(() {
       setState(() {
@@ -61,8 +63,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
           _icon = widget.items[_endingIndex];
         }
-        _buttonHide =
-            (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
+        _buttonHide = (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
       });
     });
   }
@@ -74,8 +75,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       final newPosition = widget.index / _length;
       _startingPos = _pos;
       _endingIndex = widget.index;
-      _animationController.animateTo(newPosition,
-          duration: widget.animationDuration, curve: widget.animationCurve);
+      _animationController.animateTo(newPosition, duration: widget.animationDuration, curve: widget.animationCurve);
     }
   }
 
@@ -97,12 +97,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         children: <Widget>[
           Positioned(
             bottom: -40 - (75.0 - widget.height),
-            left: Directionality.of(context) == TextDirection.rtl
-                ? null
-                : _pos * size.width,
-            right: Directionality.of(context) == TextDirection.rtl
-                ? _pos * size.width
-                : null,
+            left: Directionality.of(context) == TextDirection.rtl ? null : _pos * size.width,
+            right: Directionality.of(context) == TextDirection.rtl ? _pos * size.width : null,
             width: size.width / _length,
             child: Center(
               child: Transform.translate(
@@ -126,8 +122,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             right: 0,
             bottom: 0 - (75.0 - widget.height),
             child: CustomPaint(
-              painter: NavCustomPainter(
-                  _pos, _length, widget.color, Directionality.of(context)),
+              painter: NavCustomPainter(_pos, _length, widget.color, Directionality.of(context)),
               child: Container(
                 height: 75.0,
               ),
@@ -155,20 +150,21 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     );
   }
 
-  void setPage(int index){
+  void setPage(int index) {
     _buttonTap(index);
   }
 
   void _buttonTap(int index) {
     if (widget.onTap != null) {
+      if (index == _lastIndex) return;
+
       widget.onTap(index);
     }
     final newPosition = index / _length;
     setState(() {
       _startingPos = _pos;
       _endingIndex = index;
-      _animationController.animateTo(newPosition,
-          duration: widget.animationDuration, curve: widget.animationCurve);
+      _animationController.animateTo(newPosition, duration: widget.animationDuration, curve: widget.animationCurve);
     });
   }
 }
