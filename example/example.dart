@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(home: BottomNavBar()));
 
@@ -31,10 +31,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
           backgroundColor: Colors.blueAccent,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 600),
-          onTap: (index) {
+          onTap: (index) async {
+            if (index == 3) {
+              //do sth
+              return false; //don't let user to go to this tab
+            }
             setState(() {
               _page = index;
             });
+
+            return true; //go to selected tab
           },
         ),
         body: Container(
@@ -46,8 +52,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 RaisedButton(
                   child: Text('Go To Page of index 1'),
                   onPressed: () {
-                    final CurvedNavigationBarState navBarState =
-                        _bottomNavigationKey.currentState;
+                    final CurvedNavigationBarState navBarState = _bottomNavigationKey.currentState;
                     navBarState.setPage(1);
                   },
                 )

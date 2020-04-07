@@ -4,6 +4,8 @@ import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
+typedef ValueChanged<T> = Future<bool> Function(T value);
+
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int index;
@@ -154,9 +156,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar> with SingleTic
     _buttonTap(index);
   }
 
-  void _buttonTap(int index) {
+  void _buttonTap(int index) async {
     if (widget.onTap != null) {
       if (index == _lastIndex) return;
+
+      bool _shouldTrigger = await widget.onTap(index);
+      if (!_shouldTrigger) return;
 
       widget.onTap(index);
     }
