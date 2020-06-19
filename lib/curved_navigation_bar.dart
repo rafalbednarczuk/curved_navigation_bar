@@ -146,7 +146,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                     position: _pos,
                     length: _length,
                     index: widget.items.indexOf(item),
-                    child: item,
+                    child: Center(child: item),
                   );
                 }).toList())),
           ),
