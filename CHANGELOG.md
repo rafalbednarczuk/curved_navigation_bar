@@ -1,3 +1,6 @@
+## [0.3.3]
+- By default center items
+
 ## [0.3.2]
 - Detect tap on the whole NavButton
 
