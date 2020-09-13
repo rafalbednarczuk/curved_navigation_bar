@@ -1,3 +1,6 @@
+## [0.3.4]
+- dartfmt format
+
 ## [0.3.3]
 - By default center items
 
