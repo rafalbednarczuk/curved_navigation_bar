@@ -92,7 +92,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       color: widget.backgroundColor,
       height: widget.height,
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Positioned(
