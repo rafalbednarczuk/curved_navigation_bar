@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
@@ -7,16 +6,16 @@ class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int index;
   final Color color;
-  final Color buttonBackgroundColor;
+  final Color? buttonBackgroundColor;
   final Color backgroundColor;
-  final ValueChanged<int> onTap;
+  final ValueChanged<int>? onTap;
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
 
   CurvedNavigationBar({
-    Key key,
-    @required this.items,
+    Key? key,
+    required this.items,
     this.index = 0,
     this.color = Colors.white,
     this.buttonBackgroundColor,
@@ -25,8 +24,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
-  })  : assert(items != null),
-        assert(items.length >= 1),
+  })  : assert(items.length >= 1),
         assert(0 <= index && index < items.length),
         assert(0 <= height && height <= 75.0),
         super(key: key);
@@ -37,13 +35,13 @@ class CurvedNavigationBar extends StatefulWidget {
 
 class CurvedNavigationBarState extends State<CurvedNavigationBar>
     with SingleTickerProviderStateMixin {
-  double _startingPos;
+  late double _startingPos;
   int _endingIndex = 0;
-  double _pos;
+  late double _pos;
   double _buttonHide = 0;
-  Widget _icon;
-  AnimationController _animationController;
-  int _length;
+  late Widget _icon;
+  late AnimationController _animationController;
+  late int _length;
 
   @override
   void initState() {
@@ -92,7 +90,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       color: widget.backgroundColor,
       height: widget.height,
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Positioned(
@@ -161,7 +159,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   void _buttonTap(int index) {
     if (widget.onTap != null) {
-      widget.onTap(index);
+      widget.onTap!(index);
     }
     final newPosition = index / _length;
     setState(() {
