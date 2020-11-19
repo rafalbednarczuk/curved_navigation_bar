@@ -1,3 +1,6 @@
+## [0.4.0-nullsafety.0]
+- null safety
+
 ## [0.3.4]
 - dartfmt format
 
