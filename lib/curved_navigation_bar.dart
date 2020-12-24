@@ -3,6 +3,8 @@ import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
+typedef _LetIndexPage = bool Function(int value);
+
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int index;
@@ -10,6 +12,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Color buttonBackgroundColor;
   final Color backgroundColor;
   final ValueChanged<int> onTap;
+  final _LetIndexPage letIndexChange;
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
@@ -22,10 +25,12 @@ class CurvedNavigationBar extends StatefulWidget {
     this.buttonBackgroundColor,
     this.backgroundColor = Colors.blueAccent,
     this.onTap,
+    _LetIndexPage letIndexChange,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
-  })  : assert(items != null),
+  })  : letIndexChange = letIndexChange ?? ((_) => true),
+        assert(items != null),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),
         assert(0 <= height && height <= 75.0),
@@ -160,6 +165,9 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   }
 
   void _buttonTap(int index) {
+    if (!widget.letIndexChange(index)) {
+      return;
+    }
     if (widget.onTap != null) {
       widget.onTap(index);
     }

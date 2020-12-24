@@ -36,6 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               _page = index;
             });
           },
+          letIndexChange: (index) => true,
         ),
         body: Container(
           color: Colors.blueAccent,

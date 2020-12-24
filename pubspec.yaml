@@ -1,6 +1,6 @@
 name: curved_navigation_bar
 description: Stunning Animating Curved Shape Navigation Bar. Adjustable color, background color, animation curve, animation duration.
-version: 0.3.5
+version: 0.3.6
 homepage: https://github.com/rafalbednarczuk/curved_navigation_bar
 
 environment:

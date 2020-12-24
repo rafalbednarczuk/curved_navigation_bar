@@ -1,3 +1,6 @@
+## [0.3.6]
+- Add letIndexChange param to CurvedNavigationBar
+
 ## [0.3.5]
 - Use clipBehavior instead of overflow, add example project
 
