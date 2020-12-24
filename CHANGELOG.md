@@ -1,3 +1,6 @@
+## [0.3.7]
+- Reduce package size
+
 ## [0.3.6]
 - Add letIndexChange param to CurvedNavigationBar
 
