@@ -1,3 +1,6 @@
+## [0.3.5]
+- Use clipBehavior instead of overflow
+
 ## [0.3.4]
 - dartfmt format
 
