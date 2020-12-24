@@ -1,5 +1,5 @@
 ## [0.3.5]
-- Use clipBehavior instead of overflow
+- Use clipBehavior instead of overflow, add example project
 
 ## [0.3.4]
 - dartfmt format
