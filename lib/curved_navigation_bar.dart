@@ -16,6 +16,9 @@ class CurvedNavigationBar extends StatefulWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
+  final Gradient gradient;
+  final Gradient backgroundGradient;
+  final Gradient buttonBackgroundGradient;
 
   CurvedNavigationBar({
     Key key,
@@ -29,6 +32,10 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
+    this.gradient,
+    this.backgroundGradient,
+    this.buttonBackgroundGradient
+
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items != null),
         assert(items.length >= 1),
@@ -94,7 +101,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      color: widget.backgroundColor,
+      decoration: BoxDecoration(
+          color: widget.backgroundColor,
+          gradient: widget.backgroundGradient
+
+      ),
       height: widget.height,
       child: Stack(
         clipBehavior: Clip.none,
@@ -118,9 +129,18 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                 child: Material(
                   color: widget.buttonBackgroundColor ?? widget.color,
                   type: MaterialType.circle,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: _icon,
+
+                  child: Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: widget.buttonBackgroundColor ?? widget.color,
+                        gradient: widget.buttonBackgroundGradient ?? widget.gradient
+
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: _icon,
+                    ),
                   ),
                 ),
               ),
@@ -132,7 +152,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             bottom: 0 - (75.0 - widget.height),
             child: CustomPaint(
               painter: NavCustomPainter(
-                  _pos, _length, widget.color, Directionality.of(context)),
+                  _pos, _length, widget.color, Directionality.of(context), widget.gradient
+              ),
               child: Container(
                 height: 75.0,
               ),
