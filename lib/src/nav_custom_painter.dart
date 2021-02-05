@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 class NavCustomPainter extends CustomPainter {
   double loc;
   double s;
   Color color;
   TextDirection textDirection;
+  Gradient gradient;
 
   NavCustomPainter(
-      double startingLoc, int itemsLength, this.color, this.textDirection) {
+      double startingLoc, int itemsLength, this.color, this.textDirection, [Gradient gradient]) {
     final span = 1.0 / itemsLength;
     s = 0.2;
     double l = startingLoc + (span - s) / 2;
     loc = textDirection == TextDirection.rtl ? 0.8 - l : l;
+    this.gradient = gradient ?? null;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
+    final paint = (gradient == null)?
+    (Paint()
       ..color = color
-      ..style = PaintingStyle.fill;
+      ..style = PaintingStyle.fill) :
+    (Paint()
+      ..shader = ui.Gradient.linear(Offset(0,0), Offset(200,200), [Color(0xff85bc41), Color(0xffd6850b)])
+      ..style = PaintingStyle.fill);
+
 
     final path = Path()
       ..moveTo(0, 0)
