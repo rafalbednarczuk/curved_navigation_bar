@@ -24,7 +24,7 @@ class NavCustomPainter extends CustomPainter {
       ..color = color
       ..style = PaintingStyle.fill) :
     (Paint()
-      ..shader = ui.Gradient.linear(Offset(0,0), Offset(200,200), [Color(0xff85bc41), Color(0xffd6850b)])
+      ..shader = ui.Gradient.linear(Offset(0,0), Offset(200,200), [[gradient.colors[0], gradient.colors[1]]])
       ..style = PaintingStyle.fill);
 
 
