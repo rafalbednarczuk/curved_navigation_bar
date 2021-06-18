@@ -9,8 +9,9 @@ class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int index;
   final Color color;
-  final Color buttonBackgroundColor;
+  final Color? buttonBackgroundColor;
   final Color backgroundColor;
+  final ValueChanged<int>? onTap;
   final ValueChanged<int> onTap;
   final _LetIndexPage letIndexChange;
   final Curve animationCurve;
@@ -18,14 +19,14 @@ class CurvedNavigationBar extends StatefulWidget {
   final double height;
 
   CurvedNavigationBar({
-    Key key,
-    @required this.items,
+    Key? key,
+    required this.items,
     this.index = 0,
     this.color = Colors.white,
     this.buttonBackgroundColor,
     this.backgroundColor = Colors.blueAccent,
     this.onTap,
-    _LetIndexPage letIndexChange,
+    _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
@@ -42,13 +43,13 @@ class CurvedNavigationBar extends StatefulWidget {
 
 class CurvedNavigationBarState extends State<CurvedNavigationBar>
     with SingleTickerProviderStateMixin {
-  double _startingPos;
+  late double _startingPos;
   int _endingIndex = 0;
-  double _pos;
+  late double _pos;
   double _buttonHide = 0;
-  Widget _icon;
-  AnimationController _animationController;
-  int _length;
+  late Widget _icon;
+  late AnimationController _animationController;
+  late int _length;
 
   @override
   void initState() {
@@ -169,7 +170,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       return;
     }
     if (widget.onTap != null) {
-      widget.onTap(index);
+      widget.onTap!(index);
     }
     final newPosition = index / _length;
     setState(() {
