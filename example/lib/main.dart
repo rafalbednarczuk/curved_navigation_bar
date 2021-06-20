@@ -10,7 +10,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _page = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
           index: 0,
-          height: 50.0,
+          height: 60.0,
           items: <Widget>[
             Icon(Icons.add, size: 30),
             Icon(Icons.list, size: 30),
@@ -42,14 +42,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
           color: Colors.blueAccent,
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(_page.toString(), textScaleFactor: 10.0),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('Go To Page of index 1'),
                   onPressed: () {
-                    final CurvedNavigationBarState navBarState =
+                    final CurvedNavigationBarState? navBarState =
                         _bottomNavigationKey.currentState;
-                    navBarState.setPage(1);
+                    navBarState?.setPage(1);
                   },
                 )
               ],

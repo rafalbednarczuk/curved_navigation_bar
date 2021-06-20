@@ -1,3 +1,6 @@
+## [1.0.1]
+- make the example compatible with dart >= 2.12.0
+
 ## [1.0.0]
 - merge null safety into master
 
