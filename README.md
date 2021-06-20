@@ -48,9 +48,9 @@ Scaffold(
 ### Change page programmatically
 
 ```dart
-  //State class
+ //State class
   int _page = 0;
-  GlobalKey _bottomNavigationKey = GlobalKey();
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -74,13 +74,13 @@ Scaffold(
             child: Column(
               children: <Widget>[
                 Text(_page.toString(), textScaleFactor: 10.0),
-                RaisedButton(
+                ElevatedButton(
                   child: Text('Go To Page of index 1'),
                   onPressed: () {
                     //Page change using state does the same as clicking index 1 navigation button
-                    final CurvedNavigationBarState navBarState =
+                    final CurvedNavigationBarState? navBarState =
                         _bottomNavigationKey.currentState;
-                    navBarState.setPage(1);
+                    navBarState?.setPage(1);
                   },
                 )
               ],
