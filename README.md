@@ -62,11 +62,7 @@ Scaffold(
             Icon(Icons.list, size: 30),
             Icon(Icons.compare_arrows, size: 30),
           ],
-          onTap: (index) {
-            setState(() {
-              _page = index;
-            });
-          },
+          onTap: (index) => setState(() => _page = index),
         ),
         body: Container(
           color: Colors.blueAccent,
@@ -86,6 +82,7 @@ Scaffold(
               ],
             ),
           ),
-        ));
+        ),
+      );
   }
 ```
