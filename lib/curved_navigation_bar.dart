@@ -10,6 +10,8 @@ class CurvedNavigationBar extends StatefulWidget {
   final int index;
   final Color color;
   final Color? buttonBackgroundColor;
+  final double buttonElevation;
+  final Color? buttonShadowColor;
   final Color backgroundColor;
   final ValueChanged<int>? onTap;
   final _LetIndexPage letIndexChange;
@@ -23,6 +25,8 @@ class CurvedNavigationBar extends StatefulWidget {
     this.index = 0,
     this.color = Colors.white,
     this.buttonBackgroundColor,
+    this.buttonElevation = 0,
+    this.buttonShadowColor,
     this.backgroundColor = Colors.blueAccent,
     this.onTap,
     _LetIndexPage? letIndexChange,
@@ -117,6 +121,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                 ),
                 child: Material(
                   color: widget.buttonBackgroundColor ?? widget.color,
+                  elevation: widget.buttonElevation,
+                  shadowColor: widget.buttonShadowColor,
                   type: MaterialType.circle,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
