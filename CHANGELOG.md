@@ -1,3 +1,6 @@
+## [1.0.2]
+- update active menu item button CurvedNavigationBar widget change
+
 ## [1.0.1]
 - make the example compatible with dart >= 2.12.0
 
