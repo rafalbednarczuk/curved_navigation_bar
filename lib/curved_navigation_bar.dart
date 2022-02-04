@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/src/nav_shadow_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
@@ -16,20 +17,28 @@ class CurvedNavigationBar extends StatefulWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
+  final double shadowHeight;
+  final double shadowElevation;
+  final bool enableNavShadow;
+  final Color navShadowColor;
 
-  CurvedNavigationBar({
-    Key? key,
-    required this.items,
-    this.index = 0,
-    this.color = Colors.white,
-    this.buttonBackgroundColor,
-    this.backgroundColor = Colors.blueAccent,
-    this.onTap,
-    _LetIndexPage? letIndexChange,
-    this.animationCurve = Curves.easeOut,
-    this.animationDuration = const Duration(milliseconds: 600),
-    this.height = 75.0,
-  })  : letIndexChange = letIndexChange ?? ((_) => true),
+  CurvedNavigationBar(
+      {Key? key,
+      required this.items,
+      this.index = 0,
+      this.color = Colors.white,
+      this.buttonBackgroundColor,
+      this.backgroundColor = Colors.blueAccent,
+      this.onTap,
+      _LetIndexPage? letIndexChange,
+      this.animationCurve = Curves.easeOut,
+      this.animationDuration = const Duration(milliseconds: 600),
+      this.height = 75.0,
+      this.enableNavShadow = false,
+      this.navShadowColor = Colors.black,
+      this.shadowHeight = 3.0,
+      this.shadowElevation = 5.0})
+      : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items != null),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),
@@ -49,6 +58,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   late Widget _icon;
   late AnimationController _animationController;
   late int _length;
+  late double checkShadowHeight =
+      widget.shadowHeight > 10 ? 10 : widget.shadowHeight;
 
   @override
   void initState() {
@@ -123,6 +134,21 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                     padding: const EdgeInsets.all(8.0),
                     child: _icon,
                   ),
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: widget.enableNavShadow,
+            child: Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0 - ((75.0 - widget.shadowHeight) - widget.height),
+              child: CustomPaint(
+                painter: NavShadowPainter(_pos, _length, widget.navShadowColor,
+                    Directionality.of(context), widget.shadowElevation),
+                child: Container(
+                  height: 75.0,
                 ),
               ),
             ),
