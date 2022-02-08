@@ -82,7 +82,6 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       _animationController.animateTo(newPosition,
           duration: widget.animationDuration, curve: widget.animationCurve);
     }
-    _icon = widget.items[widget.index];
   }
 
   @override
