@@ -1,3 +1,6 @@
+## [1.0.3]
+- rollback 1.0.2 bug
+
 ## [1.0.2]
 - update active menu item button CurvedNavigationBar widget change
 
