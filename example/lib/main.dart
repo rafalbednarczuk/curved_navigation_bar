@@ -19,6 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           key: _bottomNavigationKey,
           index: 0,
           height: 60.0,
+          enableNavShadow: true,
           items: <Widget>[
             Icon(Icons.add, size: 30),
             Icon(Icons.list, size: 30),
@@ -27,8 +28,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Icon(Icons.perm_identity, size: 30),
           ],
           color: Colors.white,
-          buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.blueAccent,
+          buttonBackgroundColor: Colors.purpleAccent,
+          shadowElevation: 2,
+          navShadowColor: Colors.purpleAccent,
+          shadowHeight: 5,
+          backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 600),
           onTap: (index) {
@@ -39,7 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           letIndexChange: (index) => true,
         ),
         body: Container(
-          color: Colors.blueAccent,
+          color: Colors.white,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
