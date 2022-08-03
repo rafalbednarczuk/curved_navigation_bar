@@ -30,13 +30,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
           buttonBackgroundColor: Colors.white,
           backgroundColor: Colors.blueAccent,
           animationCurve: Curves.easeInOut,
-          animationDuration: Duration(milliseconds: 600),
+          animationDuration: Duration(milliseconds: 300),
           onTap: (index) {
             setState(() {
               _page = index;
             });
           },
-          letIndexChange: (index) => true,
+          onLongPress: (index) {
+            print('this is long press');
+          },
+          letIndexChange: (index) => _page != index,
         ),
         body: Container(
           color: Colors.blueAccent,

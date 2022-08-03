@@ -5,10 +5,12 @@ class NavButton extends StatelessWidget {
   final int length;
   final int index;
   final ValueChanged<int> onTap;
+  final ValueChanged<int>? onLongPress;
   final Widget child;
 
   NavButton({
     required this.onTap,
+    this.onLongPress,
     required this.position,
     required this.length,
     required this.index,
@@ -26,6 +28,11 @@ class NavButton extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         onTap: () {
           onTap(index);
+        },
+        onLongPress: () {
+          if (onLongPress != null) {
+            onLongPress!(index);
+          }
         },
         child: Container(
             height: 75.0,
