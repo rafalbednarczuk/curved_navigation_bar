@@ -1,7 +1,8 @@
 # curved_navigation_bar
+
 [pub package](https://pub.dartlang.org/packages/curved_navigation_bar)
 
-A Flutter package for easy implementation of curved navigation bar. 
+A Flutter package for easy implementation of curved navigation bar.
 
 ![Gif](https://github.com/rafalbednarczuk/curved_navigation_bar/blob/master/example.gif "Fancy Gif")
 
@@ -26,6 +27,12 @@ Scaffold(
     onTap: (index) {
       //Handle button tap
     },
+    onLongPress: (index) {
+      if (_page != index) {
+        return; // if the page is not active do nathing
+      }
+      //Todo if the page is active
+    },
   ),
   body: Container(color: Colors.blueAccent),
 )
@@ -39,11 +46,11 @@ Scaffold(
 `buttonBackgroundColor`: background color of floating button, default same as color attribute\
 `backgroundColor`: Color of NavigationBar's background, default Colors.blueAccent\
 `onTap`: Function handling taps on items\
+`onLongPress`: Function handling on long press on item if it's active\
 `animationCurve`: Curves interpolating button change animation, default Curves.easeOutCubic\
 `animationDuration`: Duration of button change animation, default Duration(milliseconds: 600)\
 `height`: Height of NavigationBar, min 0.0, max 75.0\
 `letIndexChange`: Function which takes page index as argument and returns bool. If function returns false then page is not changed on button tap. It returns true by default\
-
 
 ### Change page programmatically
 
@@ -66,6 +73,12 @@ Scaffold(
             setState(() {
               _page = index;
             });
+          },
+          onLongPress: (index) {
+            if (_page != index) {
+              return; // if the page is not active do nathing
+            }
+            //Todo if the page is active
           },
         ),
         body: Container(
