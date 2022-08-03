@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
@@ -133,7 +132,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             bottom: 0 - (75.0 - widget.height),
             child: CustomPaint(
               painter: NavCustomPainter(
-                  _pos, _length, widget.color, Directionality.of(context)),
+                _pos,
+                _length,
+                widget.color,
+                Directionality.of(context),
+              ),
               child: Container(
                 height: 75.0,
               ),
@@ -144,18 +147,20 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             right: 0,
             bottom: 0 - (75.0 - widget.height),
             child: SizedBox(
-                height: 100.0,
-                child: Row(
-                    children: widget.items.map((item) {
+              height: 100.0,
+              child: Row(
+                children: widget.items.map((item) {
                   return NavButton(
                     onTap: _buttonTap,
-                    onLongPress: widget.onLongPress,
+                    onLongPress: _buttonLongPress,
                     position: _pos,
                     length: _length,
                     index: widget.items.indexOf(item),
                     child: Center(child: item),
                   );
-                }).toList())),
+                }).toList(),
+              ),
+            ),
           ),
         ],
       ),
@@ -173,6 +178,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     if (widget.onTap != null) {
       widget.onTap!(index);
     }
+
     final newPosition = index / _length;
     setState(() {
       _startingPos = _pos;
@@ -180,5 +186,15 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       _animationController.animateTo(newPosition,
           duration: widget.animationDuration, curve: widget.animationCurve);
     });
+  }
+
+  void _buttonLongPress(int index) {
+    if (!widget.letIndexChange(index)) {
+      return;
+    }
+
+    if (widget.onLongPress != null) {
+      widget.onLongPress!(index);
+    }
   }
 }

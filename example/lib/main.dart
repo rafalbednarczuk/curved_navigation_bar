@@ -37,9 +37,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
             });
           },
           onLongPress: (index) {
+            if (_page != index) {
+              print('can\'t long press, page not active');
+              return;
+            }
+
             print('this is long press');
           },
-          letIndexChange: (index) => _page != index,
+          letIndexChange: (index) => true,
         ),
         body: Container(
           color: Colors.blueAccent,
