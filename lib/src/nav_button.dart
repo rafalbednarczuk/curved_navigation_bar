@@ -5,10 +5,12 @@ class NavButton extends StatelessWidget {
   final int length;
   final int index;
   final ValueChanged<int> onTap;
+  final ValueChanged<int>? onLongPress;
   final Widget child;
 
   NavButton({
     required this.onTap,
+    this.onLongPress,
     required this.position,
     required this.length,
     required this.index,
@@ -27,15 +29,21 @@ class NavButton extends StatelessWidget {
         onTap: () {
           onTap(index);
         },
+        onLongPress: () {
+          if (onLongPress != null) {
+            onLongPress!(index);
+          }
+        },
         child: Container(
-            height: 75.0,
-            child: Transform.translate(
-              offset: Offset(
-                  0, difference < 1.0 / length ? verticalAlignment * 40 : 0),
-              child: Opacity(
-                  opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
-                  child: child),
-            )),
+          height: 75.0,
+          child: Transform.translate(
+            offset: Offset(
+                0, difference < 1.0 / length ? verticalAlignment * 40 : 0),
+            child: Opacity(
+                opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
+                child: child),
+          ),
+        ),
       ),
     );
   }
