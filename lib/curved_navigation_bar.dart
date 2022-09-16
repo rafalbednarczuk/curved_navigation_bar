@@ -9,6 +9,8 @@ class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
   final int index;
   final Color color;
+  final Color selectedIconColor;
+  final Color iconColor;
   final Color? buttonBackgroundColor;
   final Color backgroundColor;
   final ValueChanged<int>? onTap;
@@ -22,6 +24,8 @@ class CurvedNavigationBar extends StatefulWidget {
     required this.items,
     this.index = 0,
     this.color = Colors.white,
+    this.selectedIconColor = Colors.purple,
+    this.iconColor = Colors.black,
     this.buttonBackgroundColor,
     this.backgroundColor = Colors.blueAccent,
     this.onTap,
@@ -29,7 +33,8 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
-  })  : letIndexChange = letIndexChange ?? ((_) => true),
+  })
+      : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items != null),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),
@@ -92,7 +97,9 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Container(
       color: widget.backgroundColor,
       height: widget.height,
@@ -120,7 +127,10 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                   type: MaterialType.circle,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: _icon,
+                    child: IconTheme(
+                        data: IconThemeData(color: widget.selectedIconColor),
+                        child: _icon
+                    ),
                   ),
                 ),
               ),
@@ -146,14 +156,17 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                 height: 100.0,
                 child: Row(
                     children: widget.items.map((item) {
-                  return NavButton(
-                    onTap: _buttonTap,
-                    position: _pos,
-                    length: _length,
-                    index: widget.items.indexOf(item),
-                    child: Center(child: item),
-                  );
-                }).toList())),
+                      return NavButton(
+                        onTap: _buttonTap,
+                        position: _pos,
+                        length: _length,
+                        index: widget.items.indexOf(item),
+                        child: Center(child: IconTheme(
+                            data: IconThemeData(color: widget.iconColor),
+                            child: item
+                        ),),
+                      );
+                    }).toList())),
           ),
         ],
       ),
