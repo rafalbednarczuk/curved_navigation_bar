@@ -1,12 +1,12 @@
+import 'package:curved_navigation_bar/curved_navigation_bar_item.dart';
+import 'package:curved_navigation_bar/src/nav_bar_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
-import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
 typedef _LetIndexPage = bool Function(int value);
 
 class CurvedNavigationBar extends StatefulWidget {
-  final List<Widget> items;
+  final List<CurvedNavigationBarItem> items;
   final int index;
   final Color color;
   final Color? buttonBackgroundColor;
@@ -53,7 +53,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   void initState() {
     super.initState();
-    _icon = widget.items[widget.index];
+    _icon = widget.items[widget.index].child;
     _length = widget.items.length;
     _pos = widget.index / _length;
     _startingPos = widget.index / _length;
@@ -64,7 +64,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         final endingPos = _endingIndex / widget.items.length;
         final middle = (endingPos + _startingPos) / 2;
         if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
-          _icon = widget.items[_endingIndex];
+          _icon = widget.items[_endingIndex].child;
         }
         _buttonHide =
             (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
@@ -100,6 +100,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         clipBehavior: Clip.none,
         alignment: Alignment.bottomCenter,
         children: <Widget>[
+          // Selected button
           Positioned(
             bottom: -40 - (75.0 - widget.height),
             left: Directionality.of(context) == TextDirection.rtl
@@ -126,6 +127,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
               ),
             ),
           ),
+          // Background
           Positioned(
             left: 0,
             right: 0,
@@ -138,22 +140,27 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
               ),
             ),
           ),
+          // Unselected buttons
           Positioned(
             left: 0,
             right: 0,
-            bottom: 0 - (75.0 - widget.height),
+            bottom: -15 - (75.0 - widget.height),
             child: SizedBox(
-                height: 100.0,
-                child: Row(
-                    children: widget.items.map((item) {
-                  return NavButton(
+              height: 90.0,
+              child: Row(
+                children: widget.items.map((item) {
+                  return NavBarItemWidget(
                     onTap: _buttonTap,
                     position: _pos,
                     length: _length,
                     index: widget.items.indexOf(item),
-                    child: Center(child: item),
+                    child: Center(child: item.child),
+                    label: item.label,
+                    labelStyle: item.labelStyle,
                   );
-                }).toList())),
+                }).toList(),
+              ),
+            ),
           ),
         ],
       ),
