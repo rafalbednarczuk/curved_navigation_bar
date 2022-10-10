@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class NavBarItemWidget extends StatelessWidget {
@@ -31,45 +33,43 @@ class NavBarItemWidget extends StatelessWidget {
   }
 
   Widget _buildItem() {
-    final desiredPosition = 1.0 / length * index;
-    final difference = (position - desiredPosition).abs();
-    final verticalAlignment = 1 - length * difference;
-    final opacity = length * difference;
     if (label == null) {
-      return Container(
-        height: 75.0,
-        child: Transform.translate(
-          offset: Offset(
-            0,
-            difference < 1.0 / length ? verticalAlignment * 40 : 0,
-          ),
-          child: Opacity(
-            opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
-            child: child,
-          ),
-        ),
+      return Column(
+        children: [
+          Expanded(child: _buildIcon()),
+          SizedBox(height: Platform.isIOS ? 20.0 : 0),
+        ],
       );
     }
     return Column(
       children: [
-        Container(
-          height: 50.0,
-          child: Transform.translate(
-            offset: Offset(
-              0,
-              difference < 1.0 / length ? verticalAlignment * 40 : 0,
-            ),
-            child: Opacity(
-              opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
-              child: child,
-            ),
+        Expanded(flex: 2, child: _buildIcon()),
+        Expanded(
+          flex: 1,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(label ?? '', style: labelStyle),
           ),
         ),
-        Text(
-          label ?? '',
-          style: labelStyle,
-        ),
+        SizedBox(height: Platform.isIOS ? 20.0 : 10.0),
       ],
+    );
+  }
+
+  Widget _buildIcon() {
+    final desiredPosition = 1.0 / length * index;
+    final difference = (position - desiredPosition).abs();
+    final verticalAlignment = 1 - length * difference;
+    final opacity = length * difference;
+    return Transform.translate(
+      offset: Offset(
+        0,
+        difference < 1.0 / length ? verticalAlignment * 40 : 0,
+      ),
+      child: Opacity(
+        opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
+        child: child,
+      ),
     );
   }
 }

@@ -19,26 +19,25 @@ class _BottomNavBarState extends State<BottomNavBar> {
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
         index: 0,
-        height: 75.0,
         items: [
           CurvedNavigationBarItem(
-            child: Icon(Icons.home_outlined, size: 30),
+            child: Icon(Icons.home_outlined),
             label: 'Home',
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.search, size: 30),
+            child: Icon(Icons.search),
             label: 'Search',
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.chat_bubble_outline, size: 30),
+            child: Icon(Icons.chat_bubble_outline),
             label: 'Chat',
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.newspaper, size: 30),
+            child: Icon(Icons.newspaper),
             label: 'Feed',
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.perm_identity, size: 30),
+            child: Icon(Icons.perm_identity),
             label: 'Personal',
           ),
         ],

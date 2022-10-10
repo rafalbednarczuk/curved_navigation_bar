@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:curved_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:curved_navigation_bar/src/nav_bar_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,8 @@ class CurvedNavigationBar extends StatefulWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
+  final double iconPadding;
+  final bool hasLabel;
 
   CurvedNavigationBar({
     Key? key,
@@ -28,12 +32,13 @@ class CurvedNavigationBar extends StatefulWidget {
     _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
-    this.height = 75.0,
-  })  : letIndexChange = letIndexChange ?? ((_) => true),
-        assert(items != null),
-        assert(items.length >= 1),
+    this.iconPadding = 12.0,
+    double? height,
+  })  : assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
-        assert(0 <= height && height <= 75.0),
+        letIndexChange = letIndexChange ?? ((_) => true),
+        height = height ?? (Platform.isAndroid ? 70.0 : 80.0),
+        hasLabel = items.any((item) => item.label != null),
         super(key: key);
 
   @override
@@ -43,12 +48,12 @@ class CurvedNavigationBar extends StatefulWidget {
 class CurvedNavigationBarState extends State<CurvedNavigationBar>
     with SingleTickerProviderStateMixin {
   late double _startingPos;
-  int _endingIndex = 0;
   late double _pos;
-  double _buttonHide = 0;
   late Widget _icon;
   late AnimationController _animationController;
   late int _length;
+  int _endingIndex = 0;
+  double _buttonHide = 0;
 
   @override
   void initState() {
@@ -79,8 +84,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       final newPosition = widget.index / _length;
       _startingPos = _pos;
       _endingIndex = widget.index;
-      _animationController.animateTo(newPosition,
-          duration: widget.animationDuration, curve: widget.animationCurve);
+      _animationController.animateTo(
+        newPosition,
+        duration: widget.animationDuration,
+        curve: widget.animationCurve,
+      );
     }
   }
 
@@ -92,7 +100,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Container(
       color: widget.backgroundColor,
       height: widget.height,
@@ -102,7 +110,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         children: <Widget>[
           // Selected button
           Positioned(
-            bottom: -40 - (75.0 - widget.height),
+            bottom: widget.height - 105.0,
             left: Directionality.of(context) == TextDirection.rtl
                 ? null
                 : _pos * size.width,
@@ -112,15 +120,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             width: size.width / _length,
             child: Center(
               child: Transform.translate(
-                offset: Offset(
-                  0,
-                  -(1 - _buttonHide) * 80,
-                ),
+                offset: Offset(0, (_buttonHide - 1) * 80),
                 child: Material(
                   color: widget.buttonBackgroundColor ?? widget.color,
                   type: MaterialType.circle,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(widget.iconPadding),
                     child: _icon,
                   ),
                 ),
@@ -131,22 +136,25 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
           Positioned(
             left: 0,
             right: 0,
-            bottom: 0 - (75.0 - widget.height),
+            bottom: 0,
             child: CustomPaint(
               painter: NavCustomPainter(
-                  _pos, _length, widget.color, Directionality.of(context)),
-              child: Container(
-                height: 75.0,
+                startingLoc: _pos,
+                itemsLength: _length,
+                color: widget.color,
+                textDirection: Directionality.of(context),
+                hasLabel: widget.hasLabel,
               ),
+              child: Container(height: widget.height),
             ),
           ),
           // Unselected buttons
           Positioned(
             left: 0,
             right: 0,
-            bottom: -15 - (75.0 - widget.height),
+            bottom: 0,
             child: SizedBox(
-              height: 90.0,
+              height: widget.height,
               child: Row(
                 children: widget.items.map((item) {
                   return NavBarItemWidget(
@@ -172,7 +180,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   }
 
   void _buttonTap(int index) {
-    if (!widget.letIndexChange(index)) {
+    if (!widget.letIndexChange(index) || _animationController.isAnimating) {
       return;
     }
     if (widget.onTap != null) {
@@ -182,8 +190,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     setState(() {
       _startingPos = _pos;
       _endingIndex = index;
-      _animationController.animateTo(newPosition,
-          duration: widget.animationDuration, curve: widget.animationCurve);
+      _animationController.animateTo(
+        newPosition,
+        duration: widget.animationDuration,
+        curve: widget.animationCurve,
+      );
     });
   }
 }

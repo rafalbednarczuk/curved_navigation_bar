@@ -1,17 +1,29 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
+const s = 0.2;
 
 class NavCustomPainter extends CustomPainter {
   late double loc;
-  late double s;
+  late double bottom;
   Color color;
+  bool hasLabel;
   TextDirection textDirection;
 
-  NavCustomPainter(
-      double startingLoc, int itemsLength, this.color, this.textDirection) {
+  NavCustomPainter({
+    required double startingLoc,
+    required int itemsLength,
+    required this.color,
+    required this.textDirection,
+    this.hasLabel = false,
+  }) {
     final span = 1.0 / itemsLength;
-    s = 0.2;
-    double l = startingLoc + (span - s) / 2;
+    final l = startingLoc + (span - s) / 2;
     loc = textDirection == TextDirection.rtl ? 0.8 - l : l;
+    bottom = hasLabel
+        ? (Platform.isAndroid ? 0.55 : 0.45)
+        : (Platform.isAndroid ? 0.6 : 0.5);
   }
 
   @override
@@ -22,21 +34,21 @@ class NavCustomPainter extends CustomPainter {
 
     final path = Path()
       ..moveTo(0, 0)
-      ..lineTo((loc - 0.1) * size.width, 0)
+      ..lineTo(size.width * (loc - 0.05), 0)
       ..cubicTo(
-        (loc + s * 0.20) * size.width,
-        size.height * 0.05,
-        loc * size.width,
-        size.height * 0.60,
-        (loc + s * 0.50) * size.width,
-        size.height * 0.60,
+        size.width * (loc + s * 0.2), // topX
+        size.height * 0.05, // topY
+        size.width * loc, // bottomX
+        size.height * bottom, // bottomY
+        size.width * (loc + s * 0.5), // centerX
+        size.height * bottom, // centerY
       )
       ..cubicTo(
-        (loc + s) * size.width,
-        size.height * 0.60,
-        (loc + s - s * 0.20) * size.width,
-        size.height * 0.05,
-        (loc + s + 0.1) * size.width,
+        size.width * (loc + s), // bottomX
+        size.height * bottom, // bottomY
+        size.width * (loc + s * 0.8), // topX
+        size.height * 0.05, // topY
+        size.width * (loc + s + 0.05),
         0,
       )
       ..lineTo(size.width, 0)
