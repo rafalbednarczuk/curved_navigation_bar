@@ -165,7 +165,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   }
 
   void _buttonTap(int index) {
-    if (!widget.letIndexChange(index)) {
+    if (!widget.letIndexChange(index) && _animationController.isAnimating) {
       return;
     }
     if (widget.onTap != null) {
