@@ -37,6 +37,8 @@ Scaffold(
 `index`: index of NavigationBar, can be used to change current index or to set initial index\
 `color`: Color of NavigationBar, default Colors.white\
 `buttonBackgroundColor`: background color of floating button, default same as color attribute\
+`buttonElevation`: elevation of floating button, default 0\
+`buttonShadowColor`: shadow color of floating button, default fully opaque black\
 `backgroundColor`: Color of NavigationBar's background, default Colors.blueAccent\
 `onTap`: Function handling taps on items\
 `animationCurve`: Curves interpolating button change animation, default Curves.easeOutCubic\
