@@ -63,11 +63,11 @@ Scaffold(
 | `buttonBackgroundColor` | Background color of floating button, default same as color attribute                                                                                       |
 | `backgroundColor`       | Color of NavigationBar's background, default Colors.blueAccent                                                                                             |
 | `onTap`                 | Function handling taps on items                                                                                                                            |
+| `letIndexChange`        | Function which takes page index as argument and returns bool. If function returns false then page is not changed on button tap. It returns true by default |
 | `animationCurve`        | Curves interpolating button change animation, default Curves.easeOutCubic                                                                                  |
 | `animationDuration`     | Duration of button change animation, default Duration(milliseconds: 600)                                                                                   |
 | `height`                | Height of NavigationBar                                                                                                                                    |
 | `iconPadding`           | Padding of icon in floating button                                                                                                                         |
-| `letIndexChange`        | Function which takes page index as argument and returns bool. If function returns false then page is not changed on button tap. It returns true by default |
 
 #### CurvedNavigationBarItem
 
@@ -75,7 +75,7 @@ Scaffold(
 |--------------|---------------------------------|
 | `child`      | Icon of CurvedNavigationBarItem |
 | `label`      | Text of CurvedNavigationBarItem |
-| `labelStyle` | TextStyle                       |
+| `labelStyle` | TextStyle for label             |
 
 ### Change page programmatically
 

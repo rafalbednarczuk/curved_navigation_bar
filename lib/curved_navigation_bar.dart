@@ -9,17 +9,43 @@ import 'src/nav_custom_painter.dart';
 typedef _LetIndexPage = bool Function(int value);
 
 class CurvedNavigationBar extends StatefulWidget {
+  /// Defines the appearance of the [CurvedNavigationBarItem] list that are
+  /// arrayed within the bottom navigation bar.
   final List<CurvedNavigationBarItem> items;
+
+  /// The index into [items] for the current active [CurvedNavigationBarItem].
   final int index;
+
+  /// The color of the [CurvedNavigationBar] itself, default Colors.white.
   final Color color;
+
+  /// The background color of floating button, default same as [color] attribute.
   final Color? buttonBackgroundColor;
+
+  /// The color of [CurvedNavigationBar]'s background, default Colors.blueAccent.
   final Color backgroundColor;
+
+  /// Called when one of the [items] is tapped.
   final ValueChanged<int>? onTap;
+
+  /// Function which takes page index as argument and returns bool. If function
+  /// returns false then page is not changed on button tap. It returns true by
+  /// default.
   final _LetIndexPage letIndexChange;
+
+  /// Curves interpolating button change animation, default Curves.easeOut.
   final Curve animationCurve;
+
+  /// Duration of button change animation, default Duration(milliseconds: 600).
   final Duration animationDuration;
+
+  /// Height of [CurvedNavigationBar].
   final double height;
+
+  /// Padding of icon in floating button.
   final double iconPadding;
+
+  /// Check if [CurvedNavigationBar] has label.
   final bool hasLabel;
 
   CurvedNavigationBar({
