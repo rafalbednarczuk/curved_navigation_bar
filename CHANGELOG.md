@@ -1,3 +1,6 @@
+## [2.0.1]
+- add dart doc
+
 ## [2.0.0]
 - add label
 
