@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CurvedNavigationBarItem {
-
   /// Icon of [CurvedNavigationBarItem].
   final Widget child;
 

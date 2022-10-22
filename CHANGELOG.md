@@ -1,3 +1,6 @@
+## [2.0.2]
+- update README and format code
+
 ## [2.0.1]
 - add dart doc
 

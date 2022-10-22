@@ -12,7 +12,7 @@ This package is a fork of the original curved_navigation_bar from https://github
 
 ```yaml
 dependencies:
-  curved_labeled_navigation_bar: ^2.0.1 #latest version
+  curved_labeled_navigation_bar: ^2.0.2 #latest version
 ```
 
 ### Easy to use
@@ -64,7 +64,7 @@ Scaffold(
 | `backgroundColor`       | Color of NavigationBar's background, default Colors.blueAccent                                                                                             |
 | `onTap`                 | Function handling taps on items                                                                                                                            |
 | `letIndexChange`        | Function which takes page index as argument and returns bool. If function returns false then page is not changed on button tap. It returns true by default |
-| `animationCurve`        | Curves interpolating button change animation, default Curves.easeOutCubic                                                                                  |
+| `animationCurve`        | Curves interpolating button change animation, default Curves.easeOut                                                                                       |
 | `animationDuration`     | Duration of button change animation, default Duration(milliseconds: 600)                                                                                   |
 | `height`                | Height of NavigationBar                                                                                                                                    |
 | `iconPadding`           | Padding of icon in floating button                                                                                                                         |
