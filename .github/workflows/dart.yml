@@ -22,6 +22,8 @@ jobs:
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       - uses: dart-lang/setup-dart@v1.3
+      
+      - uses: subosito/flutter-action@v2.8.0
 
       - name: Install dependencies
         run: flutter pub get
