@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class NavCustomPainter extends CustomPainter {
   late double loc;
   late double s;
@@ -43,6 +42,8 @@ class NavCustomPainter extends CustomPainter {
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..close();
+
+    canvas.drawShadow(path, Colors.grey, 10, false);
     canvas.drawPath(path, paint);
   }
 
