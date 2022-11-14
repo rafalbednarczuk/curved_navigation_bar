@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'src/nav_button.dart';
 import 'src/nav_custom_painter.dart';
 
@@ -16,6 +15,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
+  final double maxWidth;
 
   CurvedNavigationBar({
     Key? key,
@@ -29,9 +29,12 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
+    required this.maxWidth,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
-        assert(items != null),
-        assert(items.length >= 1),
+      //  assert(items != null),
+        assert(items.isNotEmpty),
+        //assert(items.length >= 1),
+        assert(items.length > 2),
         assert(0 <= index && index < items.length),
         assert(0 <= height && height <= 75.0),
         super(key: key);
@@ -92,8 +95,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    double widthScreeen = MediaQuery.of(context).size.width;
+    double newWidth =
+        widget.maxWidth > widthScreeen ? widthScreeen : widget.maxWidth;
+
     return Container(
+      width: newWidth,
       color: widget.backgroundColor,
       height: widget.height,
       child: Stack(
@@ -104,11 +111,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             bottom: -40 - (75.0 - widget.height),
             left: Directionality.of(context) == TextDirection.rtl
                 ? null
-                : _pos * size.width,
-            right: Directionality.of(context) == TextDirection.rtl
+                : _pos * newWidth,
+            /* right: Directionality.of(context) == TextDirection.rtl
                 ? _pos * size.width
-                : null,
-            width: size.width / _length,
+                : null, */
+            width: newWidth / _length,
             child: Center(
               child: Transform.translate(
                 offset: Offset(
