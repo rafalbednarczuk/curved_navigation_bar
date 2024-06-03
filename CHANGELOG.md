@@ -1,3 +1,7 @@
+## [1.0.4]
+- add maxWidth parameter
+- fix bottom overflow of the navigation bar
+
 ## [1.0.3]
 - rollback 1.0.2 bug
 
