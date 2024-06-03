@@ -18,7 +18,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
-  final double? width;
+  final double? maxWidth;
 
   CurvedNavigationBar({
     Key? key,
@@ -32,12 +32,12 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
-    this.width,
+    this.maxWidth,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),
         assert(0 <= height && height <= 75.0),
-        assert(width == null || 0 <= width),
+        assert(maxWidth == null || 0 <= maxWidth),
         super(key: key);
 
   @override
@@ -102,7 +102,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       child: LayoutBuilder(
         builder: (context, constraints) {
           final maxWidth =
-              min(constraints.maxWidth, widget.width ?? constraints.maxWidth);
+              min(constraints.maxWidth, widget.maxWidth ?? constraints.maxWidth);
           return Align(
             alignment: textDirection == TextDirection.ltr
                 ? Alignment.bottomLeft

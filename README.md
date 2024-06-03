@@ -42,7 +42,7 @@ Scaffold(
 `animationCurve`: Curves interpolating button change animation, default Curves.easeOutCubic\
 `animationDuration`: Duration of button change animation, default Duration(milliseconds: 600)\
 `height`: Height of NavigationBar, min 0.0, max 75.0\
-`width`: Allows to set width of the navigation bar lower than the entire screen width by default\
+`maxWidth`: Allows to set the width of the navigation bar lower than the entire screen width by default\
 `letIndexChange`: Function which takes page index as argument and returns bool. If function returns false then page is not changed on button tap. It returns true by default\
 
 
