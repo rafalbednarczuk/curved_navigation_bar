@@ -44,7 +44,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(_page.toString(), textScaleFactor: 10.0),
+                Text(_page.toString(), style: TextStyle(fontSize: 160)),
                 ElevatedButton(
                   child: Text('Go To Page of index 1'),
                   onPressed: () {
