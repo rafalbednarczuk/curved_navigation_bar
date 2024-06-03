@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:curved_navigation_bar/src/nav_custom_clipper.dart';
 import 'package:flutter/material.dart';
 import 'src/nav_button.dart';
@@ -16,6 +18,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
+  final double? width;
 
   CurvedNavigationBar({
     Key? key,
@@ -29,10 +32,12 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
+    this.width,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),
         assert(0 <= height && height <= 75.0),
+        assert(width == null || 0 <= width),
         super(key: key);
 
   @override
@@ -91,75 +96,89 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      color: widget.backgroundColor,
+    final textDirection = Directionality.of(context);
+    return SizedBox(
       height: widget.height,
-      child: ClipRect(
-        clipper: NavCustomClipper(
-          deviceHeight: MediaQuery.sizeOf(context).height,
-        ),
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            Positioned(
-              bottom: -40 - (75.0 - widget.height),
-              left: Directionality.of(context) == TextDirection.rtl
-                  ? null
-                  : _pos * size.width,
-              right: Directionality.of(context) == TextDirection.rtl
-                  ? _pos * size.width
-                  : null,
-              width: size.width / _length,
-              child: Center(
-                child: Transform.translate(
-                  offset: Offset(
-                    0,
-                    -(1 - _buttonHide) * 80,
-                  ),
-                  child: Material(
-                    color: widget.buttonBackgroundColor ?? widget.color,
-                    type: MaterialType.circle,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: _icon,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final maxWidth =
+              min(constraints.maxWidth, widget.width ?? constraints.maxWidth);
+          return Align(
+            alignment: textDirection == TextDirection.ltr
+                ? Alignment.bottomLeft
+                : Alignment.bottomRight,
+            child: Container(
+              color: widget.backgroundColor,
+              width: maxWidth,
+              child: ClipRect(
+                clipper: NavCustomClipper(
+                  deviceHeight: MediaQuery.sizeOf(context).height,
+                ),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  alignment: Alignment.bottomCenter,
+                  children: <Widget>[
+                    Positioned(
+                      bottom: -40 - (75.0 - widget.height),
+                      left: textDirection == TextDirection.rtl
+                          ? null
+                          : _pos * maxWidth,
+                      right: textDirection == TextDirection.rtl
+                          ? _pos * maxWidth
+                          : null,
+                      width: maxWidth / _length,
+                      child: Center(
+                        child: Transform.translate(
+                          offset: Offset(
+                            0,
+                            -(1 - _buttonHide) * 80,
+                          ),
+                          child: Material(
+                            color: widget.buttonBackgroundColor ?? widget.color,
+                            type: MaterialType.circle,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: _icon,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0 - (75.0 - widget.height),
+                      child: CustomPaint(
+                        painter: NavCustomPainter(
+                            _pos, _length, widget.color, textDirection),
+                        child: Container(
+                          height: 75.0,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0 - (75.0 - widget.height),
+                      child: SizedBox(
+                          height: 100.0,
+                          child: Row(
+                              children: widget.items.map((item) {
+                            return NavButton(
+                              onTap: _buttonTap,
+                              position: _pos,
+                              length: _length,
+                              index: widget.items.indexOf(item),
+                              child: Center(child: item),
+                            );
+                          }).toList())),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0 - (75.0 - widget.height),
-              child: CustomPaint(
-                painter: NavCustomPainter(
-                    _pos, _length, widget.color, Directionality.of(context)),
-                child: Container(
-                  height: 75.0,
-                ),
-              ),
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0 - (75.0 - widget.height),
-              child: SizedBox(
-                  height: 100.0,
-                  child: Row(
-                      children: widget.items.map((item) {
-                    return NavButton(
-                      onTap: _buttonTap,
-                      position: _pos,
-                      length: _length,
-                      index: widget.items.indexOf(item),
-                      child: Center(child: item),
-                    );
-                  }).toList())),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
