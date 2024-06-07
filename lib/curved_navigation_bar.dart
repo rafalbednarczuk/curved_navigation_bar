@@ -101,8 +101,8 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       height: widget.height,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final maxWidth =
-              min(constraints.maxWidth, widget.maxWidth ?? constraints.maxWidth);
+          final maxWidth = min(
+              constraints.maxWidth, widget.maxWidth ?? constraints.maxWidth);
           return Align(
             alignment: textDirection == TextDirection.ltr
                 ? Alignment.bottomLeft
@@ -188,7 +188,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   }
 
   void _buttonTap(int index) {
-    if (!widget.letIndexChange(index)) {
+    if (!widget.letIndexChange(index) || _animationController.isAnimating) {
       return;
     }
     if (widget.onTap != null) {
