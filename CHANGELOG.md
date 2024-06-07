@@ -1,3 +1,7 @@
+## [1.0.5]
+- fix animation glitching when tapping the same button multiple times quickly
+- make changing items change also the selected item
+
 ## [1.0.4]
 - add maxWidth parameter
 - fix bottom overflow of the navigation bar
