@@ -1,3 +1,6 @@
+## [1.0.6]
+- set minimum flutter sdk version to 3.10.0 to support MediaQuery.sizeOf
+
 ## [1.0.5]
 - fix animation glitching when tapping the same button multiple times quickly
 - make changing items change also the selected item

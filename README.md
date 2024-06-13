@@ -9,7 +9,7 @@ A Flutter package for easy implementation of curved navigation bar.
 
 ```yaml
 dependencies:
-  curved_navigation_bar: ^1.0.5 #latest version
+  curved_navigation_bar: ^1.0.6 #latest version
 ```
 
 ### Easy to use
