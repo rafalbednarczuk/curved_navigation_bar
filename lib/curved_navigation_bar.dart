@@ -8,16 +8,49 @@ import 'src/nav_custom_painter.dart';
 typedef _LetIndexPage = bool Function(int value);
 
 class CurvedNavigationBar extends StatefulWidget {
+  /// Items to be displayed in the Nav Bar
   final List<Widget> items;
+
+  /// represent current chosen navigation
   final int index;
+
+  /// color of the curved navigation bar itself.
+  ///
+  /// defaults to Colors.white
   final Color color;
+  /// background color of the button (floating circle button) representing the current navigation.
+  ///
+  /// This is the floating circle button which holds the current navigation item.
+  ///
+  /// default to Colors.white
   final Color? buttonBackgroundColor;
+  /// color of the **underlying container background** holding this curved navigation bar.
+  ///
+  /// defaults to Colors.blueAccent
   final Color backgroundColor;
+  /// Function handling taps on items, called whenever the chosen navigation changed.
   final ValueChanged<int>? onTap;
+
+  /// Whether enabling navigation or not.
   final _LetIndexPage letIndexChange;
+  /// The animation curve applied to the floating circle button
+  ///
+  /// defaults to Curves.easeOutCubic
+
   final Curve animationCurve;
+  /// Movement Time of the  floating circle button
+  ///
+  /// time to move the floating circle button which hold the navigation item
+  /// from a navigation to another.
+  ///
+  /// defaults to Duration(milliseconds: 600)
   final Duration animationDuration;
+  /// height of the curved navigation bar.
+  /// min 0.0, max 75.0
   final double height;
+  /// maximum width to impose on the curved navigation bar as a constraint
+  ///
+  /// When set : The navigation bar can not exceed that width
   final double? maxWidth;
 
   CurvedNavigationBar({
