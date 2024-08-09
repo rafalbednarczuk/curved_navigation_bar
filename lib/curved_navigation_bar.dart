@@ -19,24 +19,27 @@ class CurvedNavigationBar extends StatefulWidget {
   final Duration animationDuration;
   final double height;
   final double? maxWidth;
+  final Color borderColor;
+  final double borderWidth;
 
-  CurvedNavigationBar({
-    Key? key,
-    required this.items,
-    this.index = 0,
-    this.color = Colors.white,
-    this.buttonBackgroundColor,
-    this.backgroundColor = Colors.blueAccent,
-    this.onTap,
-    _LetIndexPage? letIndexChange,
-    this.animationCurve = Curves.easeOut,
-    this.animationDuration = const Duration(milliseconds: 600),
-    this.height = 75.0,
-    this.maxWidth,
-  })  : letIndexChange = letIndexChange ?? ((_) => true),
+  CurvedNavigationBar(
+      {Key? key,
+      required this.items,
+      this.index = 0,
+      this.color = Colors.white,
+      this.buttonBackgroundColor,
+      this.backgroundColor = Colors.blueAccent,
+      this.onTap,
+      _LetIndexPage? letIndexChange,
+      this.animationCurve = Curves.easeOut,
+      this.animationDuration = const Duration(milliseconds: 600),
+      this.height = 75.0,
+      this.maxWidth,
+      this.borderColor = Colors.black,
+      this.borderWidth = 1})
+      : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
-        assert(0 <= height && height <= 75.0),
         assert(maxWidth == null || 0 <= maxWidth),
         super(key: key);
 
@@ -154,7 +157,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                       bottom: 0 - (75.0 - widget.height),
                       child: CustomPaint(
                         painter: NavCustomPainter(
-                            _pos, _length, widget.color, textDirection),
+                            _pos,
+                            _length,
+                            widget.color,
+                            textDirection,
+                            widget.borderColor,
+                            widget.borderWidth),
                         child: Container(
                           height: 75.0,
                         ),

@@ -5,9 +5,11 @@ class NavCustomPainter extends CustomPainter {
   late double s;
   Color color;
   TextDirection textDirection;
+  Color borderColor;
+  double borderWidth;
 
-  NavCustomPainter(
-      double startingLoc, int itemsLength, this.color, this.textDirection) {
+  NavCustomPainter(double startingLoc, int itemsLength, this.color,
+      this.textDirection, this.borderColor, this.borderWidth) {
     final span = 1.0 / itemsLength;
     s = 0.2;
     double l = startingLoc + (span - s) / 2;
@@ -43,7 +45,14 @@ class NavCustomPainter extends CustomPainter {
       ..lineTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..close();
+
+    //boder
+    final borderPaint = Paint()
+      ..color = borderColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth;
     canvas.drawPath(path, paint);
+    canvas.drawPath(path, borderPaint);
   }
 
   @override
