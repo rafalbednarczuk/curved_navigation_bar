@@ -5,9 +5,10 @@ class NavCustomPainter extends CustomPainter {
   late double s;
   Color color;
   TextDirection textDirection;
+  Gradient? gradient;
 
-  NavCustomPainter(
-      double startingLoc, int itemsLength, this.color, this.textDirection) {
+  NavCustomPainter(double startingLoc, int itemsLength, this.color,
+      this.textDirection, this.gradient) {
     final span = 1.0 / itemsLength;
     s = 0.2;
     double l = startingLoc + (span - s) / 2;
@@ -18,6 +19,8 @@ class NavCustomPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = color
+      ..shader =
+          gradient?.createShader(Rect.fromLTWH(0, 0, size.width, size.height))
       ..style = PaintingStyle.fill;
 
     final path = Path()

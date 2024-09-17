@@ -19,6 +19,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Duration animationDuration;
   final double height;
   final double? maxWidth;
+  final Gradient? gradient;
 
   CurvedNavigationBar({
     Key? key,
@@ -33,6 +34,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
     this.maxWidth,
+    this.gradient,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
@@ -137,9 +139,13 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                             0,
                             -(1 - _buttonHide) * 80,
                           ),
-                          child: Material(
-                            color: widget.buttonBackgroundColor ?? widget.color,
-                            type: MaterialType.circle,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color:
+                                  widget.buttonBackgroundColor ?? widget.color,
+                              shape: BoxShape.circle,
+                              gradient: widget.gradient,
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: _icon,
@@ -154,7 +160,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                       bottom: 0 - (75.0 - widget.height),
                       child: CustomPaint(
                         painter: NavCustomPainter(
-                            _pos, _length, widget.color, textDirection),
+                            _pos,
+                            _length,
+                            widget.color,
+                            textDirection,
+                            widget.gradient),
                         child: Container(
                           height: 75.0,
                         ),
