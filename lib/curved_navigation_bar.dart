@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:curved_navigation_bar/models/curved_bar_item.dart';
 import 'package:curved_navigation_bar/src/nav_custom_clipper.dart';
 import 'package:flutter/material.dart';
 import 'src/nav_button.dart';
@@ -8,7 +9,7 @@ import 'src/nav_custom_painter.dart';
 typedef _LetIndexPage = bool Function(int value);
 
 class CurvedNavigationBar extends StatefulWidget {
-  final List<Widget> items;
+  final List<CurvedBarItem> items;
   final int index;
   final Color color;
   final Color? buttonBackgroundColor;
@@ -19,6 +20,10 @@ class CurvedNavigationBar extends StatefulWidget {
   final Duration animationDuration;
   final double height;
   final double? maxWidth;
+  final TextStyle? activeLabelStyle;
+  final TextStyle? inActiveLabelStyle;
+  final bool? showActiveLabel;
+  final bool? showInactiveLabel;
 
   CurvedNavigationBar({
     Key? key,
@@ -33,6 +38,10 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
     this.maxWidth,
+    this.activeLabelStyle,
+    this.inActiveLabelStyle,
+    this.showActiveLabel,
+    this.showInactiveLabel,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
@@ -57,7 +66,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   void initState() {
     super.initState();
-    _icon = widget.items[widget.index];
+    _icon = widget.items[widget.index].child;
     _length = widget.items.length;
     _pos = widget.index / _length;
     _startingPos = widget.index / _length;
@@ -69,7 +78,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         final endingPos = _endingIndex / widget.items.length;
         final middle = (endingPos + _startingPos) / 2;
         if ((endingPos - _pos).abs() < (_startingPos - _pos).abs()) {
-          _icon = widget.items[_endingIndex];
+          _icon = widget.items[_endingIndex].child;
         }
         _buttonHide =
             (1 - ((middle - _pos) / (_startingPos - middle)).abs()).abs();
@@ -88,7 +97,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
           duration: widget.animationDuration, curve: widget.animationCurve);
     }
     if (!_animationController.isAnimating) {
-      _icon = widget.items[_endingIndex];
+      _icon = widget.items[_endingIndex].child;
     }
   }
 
@@ -173,7 +182,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                               position: _pos,
                               length: _length,
                               index: widget.items.indexOf(item),
-                              child: Center(child: item),
+                              child: Center(child: item.child),
+                              activeLabelStyle: widget.activeLabelStyle,
+                              inActiveLabelStyle: widget.inActiveLabelStyle,
+                              label: item.label,
+                              showActiveLabel: widget.showActiveLabel,
+                              showInactiveLabel: widget.showInactiveLabel,
                             );
                           }).toList())),
                     ),

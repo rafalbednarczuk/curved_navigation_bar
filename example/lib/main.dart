@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/models/curved_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -16,14 +17,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
-          key: _bottomNavigationKey,
+          key: _bottomNavigationKey,          
           index: 0,
-          items: <Widget>[
-            Icon(Icons.add, size: 30),
-            Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
-            Icon(Icons.call_split, size: 30),
-            Icon(Icons.perm_identity, size: 30),
+          items: <CurvedBarItem>[
+            CurvedBarItem(child: Icon(Icons.add, size: 30)),
+            CurvedBarItem(child: Icon(Icons.list, size: 30)),
+            CurvedBarItem(child: Icon(Icons.compare_arrows, size: 30)),
+            CurvedBarItem(child: Icon(Icons.call_split, size: 30)),
+            CurvedBarItem(child: Icon(Icons.perm_identity, size: 30)),
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
