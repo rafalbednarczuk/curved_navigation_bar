@@ -36,9 +36,8 @@ class CurvedNavigationBar extends StatefulWidget {
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
-        assert(0 <= height && height <= 75.0),
-        assert(maxWidth == null || 0 <= maxWidth),
-        super(key: key);
+        assert(0 <= height),
+        assert(maxWidth == null || 0 <= maxWidth);
 
   @override
   CurvedNavigationBarState createState() => CurvedNavigationBarState();
@@ -107,6 +106,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         builder: (context, constraints) {
           final maxWidth = min(
               constraints.maxWidth, widget.maxWidth ?? constraints.maxWidth);
+          final yOffset = widget.height < 100 ? (80) : (widget.height - 10);
           return Align(
             alignment: textDirection == TextDirection.ltr
                 ? Alignment.bottomLeft
@@ -123,7 +123,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
                     Positioned(
-                      bottom: -40 - (75.0 - widget.height),
+                      bottom: -40,
                       left: textDirection == TextDirection.rtl
                           ? null
                           : _pos * maxWidth,
@@ -135,7 +135,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                         child: Transform.translate(
                           offset: Offset(
                             0,
-                            -(1 - _buttonHide) * 80,
+                            -(1 - _buttonHide) * yOffset,
                           ),
                           child: Material(
                             color: widget.buttonBackgroundColor ?? widget.color,
@@ -151,21 +151,21 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                     Positioned(
                       left: 0,
                       right: 0,
-                      bottom: 0 - (75.0 - widget.height),
+                      bottom: 0,
                       child: CustomPaint(
                         painter: NavCustomPainter(
                             _pos, _length, widget.color, textDirection),
                         child: Container(
-                          height: 75.0,
+                          height: widget.height,
                         ),
                       ),
                     ),
                     Positioned(
                       left: 0,
                       right: 0,
-                      bottom: 0 - (75.0 - widget.height),
+                      bottom: 10,
                       child: SizedBox(
-                          height: 100.0,
+                          height: widget.height,
                           child: Row(
                               children: widget.items.map((item) {
                             return NavButton(
@@ -173,7 +173,10 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                               position: _pos,
                               length: _length,
                               index: widget.items.indexOf(item),
-                              child: Center(child: item),
+                              height: widget.height,
+                              child: Center(
+                                child: item,
+                              ),
                             );
                           }).toList())),
                     ),
