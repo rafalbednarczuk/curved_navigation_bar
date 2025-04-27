@@ -1,9 +1,8 @@
 import 'dart:math';
-
+import 'package:curved_navigation_bar/src/nav_button.dart';
 import 'package:curved_navigation_bar/src/nav_custom_clipper.dart';
+import 'package:curved_navigation_bar/src/nav_custom_painter.dart';
 import 'package:flutter/material.dart';
-import 'src/nav_button.dart';
-import 'src/nav_custom_painter.dart';
 
 typedef _LetIndexPage = bool Function(int value);
 
@@ -36,7 +35,7 @@ class CurvedNavigationBar extends StatefulWidget {
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.isNotEmpty),
         assert(0 <= index && index < items.length),
-        assert(0 <= height && height <= 75.0),
+        assert(0 <= height),
         assert(maxWidth == null || 0 <= maxWidth),
         super(key: key);
 
@@ -107,6 +106,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         builder: (context, constraints) {
           final maxWidth = min(
               constraints.maxWidth, widget.maxWidth ?? constraints.maxWidth);
+          final yOffset = widget.height * 1.2;
           return Align(
             alignment: textDirection == TextDirection.ltr
                 ? Alignment.bottomLeft
@@ -123,7 +123,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                   alignment: Alignment.bottomCenter,
                   children: <Widget>[
                     Positioned(
-                      bottom: -40 - (75.0 - widget.height),
+                      bottom: -40,
                       left: textDirection == TextDirection.rtl
                           ? null
                           : _pos * maxWidth,
@@ -135,7 +135,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                         child: Transform.translate(
                           offset: Offset(
                             0,
-                            -(1 - _buttonHide) * 80,
+                            -(1 - _buttonHide) * yOffset,
                           ),
                           child: Material(
                             color: widget.buttonBackgroundColor ?? widget.color,
@@ -151,12 +151,12 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                     Positioned(
                       left: 0,
                       right: 0,
-                      bottom: 0 - (75.0 - widget.height),
+                      bottom: 10,
                       child: CustomPaint(
                         painter: NavCustomPainter(
                             _pos, _length, widget.color, textDirection),
                         child: Container(
-                          height: 75.0,
+                          height: widget.height,
                         ),
                       ),
                     ),
@@ -169,6 +169,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
                           child: Row(
                               children: widget.items.map((item) {
                             return NavButton(
+                              height: widget.height,
                               onTap: _buttonTap,
                               position: _pos,
                               length: _length,
