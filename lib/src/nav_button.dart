@@ -6,6 +6,7 @@ class NavButton extends StatelessWidget {
   final int index;
   final ValueChanged<int> onTap;
   final Widget child;
+  final double height;
 
   NavButton({
     required this.onTap,
@@ -13,6 +14,7 @@ class NavButton extends StatelessWidget {
     required this.length,
     required this.index,
     required this.child,
+    required this.height,
   });
 
   @override
@@ -23,20 +25,26 @@ class NavButton extends StatelessWidget {
     final opacity = length * difference;
     return Expanded(
       child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          onTap(index);
-        },
-        child: Container(
-            height: 75.0,
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            onTap(index);
+          },
+          child: SizedBox(
+            height: height,
             child: Transform.translate(
               offset: Offset(
                   0, difference < 1.0 / length ? verticalAlignment * 40 : 0),
               child: Opacity(
-                  opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
-                  child: child),
-            )),
-      ),
+                opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 0,
+                  ),
+                  child: child,
+                ),
+              ),
+            ),
+          )),
     );
   }
 }
